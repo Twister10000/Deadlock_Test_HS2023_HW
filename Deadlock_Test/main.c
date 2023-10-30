@@ -67,7 +67,7 @@ void vT1(void *pvParameters) {
 	uint32_t task1Counter = 0;
 	for(;;) {
 		if(xSemaphoreTake(data2Key, 5 / portTICK_RATE_MS)) { //Lock P-Resource data2
-			vTaskDelay(101 / portTICK_RATE_MS);
+			vTaskDelay(100 / portTICK_RATE_MS); //Solution same Delay
 			PORTF.OUTCLR = 0x01;
 			task1Counter++;
 			data2 = task1Counter;
