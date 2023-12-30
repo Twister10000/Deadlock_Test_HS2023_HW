@@ -45,7 +45,7 @@ void vApplicationIdleHook( void )
 
 int main(void)
 {
-    resetReason_t reason = getResetReason();
+
 
 	vInitClock();
 	vInitDisplay();
@@ -67,7 +67,7 @@ void vT1(void *pvParameters) {
 	uint32_t task1Counter = 0;
 	for(;;) {
 		if(xSemaphoreTake(data2Key, 5 / portTICK_RATE_MS)) { //Lock P-Resource data2
-			vTaskDelay(101 / portTICK_RATE_MS);
+			vTaskDelay(100 / portTICK_RATE_MS);
 			PORTF.OUTCLR = 0x01;
 			task1Counter++;
 			data2 = task1Counter;
@@ -76,8 +76,8 @@ void vT1(void *pvParameters) {
 				vDisplayWriteStringAtPos(1,0,"d1: %d / ", data1);
 				vDisplayWriteStringAtPos(1,12, "d2:%d", data2);
 			}
-			xSemaphoreGive(data1Key); //Unlock data1
 			xSemaphoreGive(data2Key); //Unlock data2
+			xSemaphoreGive(data1Key); //Unlock data1
 			PORTF.OUTSET = 0x01;
 		}
 	}
